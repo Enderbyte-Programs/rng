@@ -1,0 +1,21 @@
+!main build
+!require chmod cp mkdir gzexe rm
+!def build
+    set -e
+    !execute clean
+	mkdir dist
+	cp src/rng.py dist/rng
+	chmod 777 dist/rng
+	gzexe dist/rng
+!def clean
+    rm -rf dist
+!def install:admin
+    set -e
+    cp dist/rng /usr/bin/rng
+!def localinstall
+    set -e
+    mkdir -p ~/.local/bin
+	cp dist/rng ~/.local/bin
+!def uninstall
+    rm ~/.local/bin/rng
+	rm /usr/bin/rng
